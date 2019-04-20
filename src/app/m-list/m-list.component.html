@@ -1,0 +1,73 @@
+<div class="row clsMlistdv">
+  <div class="col-3 clsFiltSec">
+    <div class="row clsResType">
+    <div class='row'>
+      <span>RESIDENTIAL TYPE</span>
+    </div>
+    <div class="row btn-group btn-group-toggle">
+            <label class="btn-primary"  *ngFor="let res of ResdentialTypes" ngbButtonLabel>
+              <input type="checkbox" ngbButton [(ngModel)]="res.checked" (click)="getResTypes(res)"> {{res.value}}
+            </label>
+    </div>
+  </div>
+    <div class="row clsLocSrch">
+        <div class='row'>
+            <span>Location</span>
+          </div>
+          <div class="row btn-group btn-group-toggle">
+                  <label class="btn-primary"  *ngFor="let loc of locationRes" ngbButtonLabel>
+                    <input type="checkbox" ngbButton [(ngModel)]="loc.checked" (click)="getLocTypes(loc)"> {{loc.value}}
+                  </label>
+          </div>
+    </div>
+
+  </div>
+  <div class="col-9">
+    <div class="row clsListProp" (click)="gotopropdtl()">
+      <div class="row">
+        <div class="col-3">
+            <img src="assets/images-myron/prop1/img1.jpeg" alt="Random slide">
+        </div>
+        <div class="col-9">
+          <div class='row'>
+            <div class="col-6">
+                KINGS MARQUE HMDA approved venture at Tukkuguda
+            </div>  
+            <div class="col-6">
+               <span class="fa fa-envelope"></span>   
+               <span (click)="shortLstd = !shortLstd" [ngClass]="{ 'fa fa-star-o': shortLstd, 'fa fa-star': !shortLstd}"> </span>      
+              </div>             
+          </div>
+          <div class='row clsCSDtls'>
+            <div class="col-2">
+              3.77Crores
+            </div>
+            <div class="col-2">
+              7999sq.ft
+              </div>
+              <div class="col-8 clsSocialbtns">
+                  <span><fb-like url={{url}}></fb-like></span>
+                  <span><tweet url={{url}} text={{text}}></tweet></span>
+                  <span><linkedin-share url={{url}}></linkedin-share></span>
+              </div>
+          </div>
+          <div class="row clsMlstDtl">
+             <div [ngClass]="{'showMore': more, 'showLess': !more}">An east facing 4 bhk resale flat is available in the promising locality of gachibowli, hyderabad. It is a ready to move in spacious flat and is located on the 16th floor. Every single detail of the flat is carefully designed. This feng shui/vaastu compliant property offers quality specifications such as lift(S), park, visitor parking, water storage, intercom facility and security/fire alarm. It is a gated society flat. It provides a spectacular view of the park/garden, main road, club and pool. The apartment is priced at rs. 37600000 (Rs. 7999 per sq. Ft. ). It is a freehold property, with a super built-Up area of 4701 sq. Ft. The property price is all inclusive. It has 6 bathroom(S). The flat comprises of 2 balcony(S). 24x7 water supply from municipal corporation and borewell/tank. 
+             </div>
+            <span (click)="more = !more">{{more ? '--Less' : '++more'}}</span>
+            </div>
+        </div>
+      </div>
+      <div class="row clsContDtls">
+        <div class="col-6"style="    font-size: small;padding-top:1%">
+          <span>posted by Apr 20, 2019 by Myron Builders</span>
+        </div>
+        <div  class="col-6" style="text-align: right;">
+          <span class="clsContLab">
+            <label>Conatct Builder</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+.clsMlistdv{
+    margin: 1% 0px 0px 0px;
+}
+.clsResType label, .clsLocSrch label
+{
+    margin:0.5%
+}
+.row{
+    margin: 0px;
+}
+.clsListProp img{
+    width: 100%;
+    padding-top:1%
+}
+
+.clsListProp{
+    margin-top: 2%;
+    padding-left: 2%;
+}
+.clsContDtls{
+    width: 100%;
+}
+.clsContLab{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding:2%;
+    border-radius: 0.25rem;
+}
+
+.clsListProp{
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 0 0 3px 0;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.clsCSDtls{
+    margin:1% 1% 1% 0;
+}
+.clsCSDtls div:first-child{
+    padding: 0px;
+}
+.clsSocialbtns{
+    display:inline-flex;
+    flex-direction: row-reverse;
+}
+.clsSocialbtns span{
+    line-height: 0px;
+    padding-right:1%
+}
+
+.showLess { max-height: 20px;  overflow: hidden;     width: 91%;}
+.showMore { height:auto;}
+.clsMlstDtl{
+    width: 100%;
+}
+.clsMlstDtl span{
+    vertical-align: bottom;
+    color: #3198db;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+}
+.clsMlstDtl div:first-child{
+    display:inline-block;
+    font-size: 11px;
+    color: #666;
+    overflow: hidden;
+}

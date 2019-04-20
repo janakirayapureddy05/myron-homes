@@ -1,0 +1,32 @@
+
+<section class="carousel-img">
+              <ngb-carousel *ngIf="slides" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+                    <ng-template ngbSlide *ngFor="let slide of slides">
+                      <img [src]="slide.image" alt="Random slide">
+                    </ng-template>
+                  </ngb-carousel>
+    </section>
+    <section class="search-sec">
+        <div class="container">
+               <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                                    <div ngbDropdown class="d-inline-block" style="width: 100%;">
+                                            <button style="width: 100%;" class="search-slt" id="dresdentialType" ngbDropdownToggle>{{selResdentialTypes.value}}</button>
+                                            <div ngbDropdownMenu aria-labelledby="dresdentialType">
+                                              <button ngbDropdownItem *ngFor="let resType of ResdentialTypes" (click)="ChangeResType(resType)" >{{resType.value}}</button>
+                                            </div>
+                                          </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+                                <input id="inputLocate" type="text" class="search-slt" placeholder="Enter Location" [(ngModel)]="selLocation" [resultTemplate]="rt" [ngbTypeahead]="searchLoc">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <button type="button" class="btn btn-danger wrn-btn" (click)="searchprop()">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
