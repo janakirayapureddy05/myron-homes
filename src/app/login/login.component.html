@@ -1,0 +1,26 @@
+<form action="action_page.php">
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" (click)="login()" class="clslogin">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+      <button type="button"  (click)="showDialog()" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
+
+
+<p-dialog header="Register New User" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '50%', left: '25%'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+        <app-register></app-register>
+</p-dialog>

@@ -14,8 +14,7 @@
 }
 
 .clsListProp{
-    margin-top: 2%;
-    padding-left: 2%;
+        padding-left: 2%;
 }
 .clsContDtls{
     width: 100%;
@@ -33,7 +32,6 @@
     border: 1px solid #ccc;
     padding: 0 0 3px 0;
     box-sizing: border-box;
-    margin-bottom: 15px;
     -webkit-transition: all .1s ease-in;
     transition: all .1s ease-in;
     background-color: #fff;
@@ -74,4 +72,33 @@
     font-size: 11px;
     color: #666;
     overflow: hidden;
+}
+.srchCls{
+    background-color: #1A4668;
+    margin-top: 2%;
+    padding: 2%;
+}
+a {
+    cursor: pointer;
+}
+.pagination a {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    border: 1px solid #dee2e6;
+}
+.pagination .active{
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff!important;
+    border-color: #007bff;
+}
+.pagination .active a{
+    color: white;
+}
+.colorblue{
+color: #007bff;
 }

@@ -44,3 +44,10 @@ nav > .nav.nav-tabs{
       border-radius:0;
       transition:background 0.20s linear;
   }
+
+  agm-map {
+    height: 500px;
+  }
+  .clsprpdtlsec{
+    width:100%;
+  }
