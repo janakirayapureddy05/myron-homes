@@ -1,0 +1,51 @@
+.clsSocialbtns{
+    display:inline-flex;
+    flex-direction: row-reverse;
+}
+.clsSocialbtns span{
+    padding-right:1%
+}
+.showLess { max-height: 20px;  overflow: hidden;     width: 91%;}
+.showMore { height:auto;}
+:host >>>  img {
+    width:90%;
+    height:90%;
+    max-width: 90%;
+    max-height: 90%;
+}
+:host >>> .ui-panel-images {
+    width: 100%;
+    height: 100%;
+}
+
+:host >>> .ui-galleria-panel {
+    width: 100%;
+    height: 100%;
+}
+
+
+.mailcls{
+    color: #dd4b39;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.9em;
+}
+.hover-content {
+  visibility: hidden;
+  margin-top: -2%;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  color:black;
+  font-size: 13px;
+}
+.parent:hover .hover-content {
+    visibility: visible;
+}
+.marqueecls{
+    color: #563d7c;
+    font-weight:bold;
+    font-style: italic;
+    border: 1px solid #fed136;
+}

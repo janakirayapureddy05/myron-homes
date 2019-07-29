@@ -1,0 +1,260 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 clsprpdtlsec">
+      <nav>
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="true">Admin Profile</a>
+          <a class="nav-item nav-link" id="nav-cprofile-tab" data-toggle="tab" href="#nav-cprofile" role="tab"
+            aria-controls="nav-cprofile" aria-selected="false">Register a Company</a>
+          <a (click)="getCompanys()" class="nav-item nav-link" id="nav-property-tab" data-toggle="tab"
+            href="#nav-property" role="tab" aria-controls="nav-property" aria-selected="false">View Companys</a>
+        </div>
+      </nav>
+      <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <form name="form" (ngSubmit)="f.form.valid && saveAdminDetails()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label for="name" class="control-label">Name</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f.submitted && name.invalid">
+                  <div *ngIf="name.errors.required">Name is required</div>
+                </div>
+              </span>
+              <input type="text" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid}" name="name"
+                class="form-control" placeholder="Enter full name" [(ngModel)]="adminProfile.name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f.submitted && phone.invalid">
+                  <div *ngIf="phone.errors.required">phone is required</div>
+                </div>
+              </span>
+              <input type="tel" name="phone" #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid}"
+                [(ngModel)]="adminProfile.phone" class="form-control" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+              <label for="mail">Email address</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f.submitted && email.invalid">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                  <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                </div>
+              </span>
+              <input type="email" name="email" #email="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && email.invalid}" [(ngModel)]="adminProfile.mail"
+                class="form-control" placeholder="Enter email" required email>
+            </div>
+            <fieldset class="form-group">
+              <div class="ui-g">
+                <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                <div class="ui-g" style="width:250px;margin-bottom:10px">
+                  <div class="ui-g-12">
+                    <p-radioButton name="Gender" value="male" label="Male" [(ngModel)]="adminProfile.gender"
+                      inputId="male"></p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="Gender" value="female" label="Female" [(ngModel)]="adminProfile.gender"
+                      inputId="female"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-group">
+              <label for="loc" class="control-label">Location</label>
+              <input type="text" name="location" id="loc" [(ngModel)]="adminProfile.location" class="form-control"
+                placeholder="Enter Address" required>
+            </div>
+            <div class="form-group">
+              <label for="occup" class="control-label">Occupation</label>
+              <input type="text" name="occupation" id="occup" [(ngModel)]="adminProfile.occupation" class="form-control"
+                placeholder="Enter Occupation" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-cprofile" role="tabpanel" aria-labelledby="nav-cprofile-tab">
+          <form name="form" (ngSubmit)="f1.form.valid && registerCompany()" #f1="ngForm" novalidate>
+            <div class="form-group">
+              <label for="cname" class="control-label">Name</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f1.submitted && cname.invalid">
+                  <div *ngIf="cname.errors.required">Name is required</div>
+                </div>
+              </span>
+              <input type="text" name="cname" #cname="ngModel" class="form-control"
+                [ngClass]="{ 'is-invalid': f1.submitted && cname.invalid}" [(ngModel)]="addComp.name"
+                placeholder="Enter Company Name" required>
+            </div>
+            <div class="form-group">
+              <label for="cphone">Phone Number</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f1.submitted && cphone.invalid">
+                  <div *ngIf="cphone.errors.required">phone is required</div>
+                </div>
+              </span>
+              <input type="tel" name="cphone" #cphone="ngModel"
+                [ngClass]="{ 'is-invalid': f1.submitted && cphone.invalid}" [(ngModel)]="addComp.phone"
+                class="form-control" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+              <label for="cmail">Email address</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f1.submitted && cmail.invalid">
+                  <div *ngIf="cmail.errors.required">Email is required</div>
+                  <div *ngIf="cmail.errors.email">Email must be a valid email address</div>
+                </div>
+              </span>
+              <input type="email" name="cmail" [(ngModel)]="addComp.mail" #cmail="ngModel"
+                [ngClass]="{ 'is-invalid': f1.submitted && cmail.invalid }" class="form-control"
+                placeholder="Enter Company email" required email>
+            </div>
+            <div class="form-group">
+              <label for="loc" class="control-label">Location</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f1.submitted && clocation.invalid">
+                  <div *ngIf="clocation.errors.required">Location is required</div>
+                </div>
+              </span>
+              <input type="text" name="clocation" #clocation="ngModel"
+                [ngClass]="{ 'is-invalid': f1.submitted && clocation.invalid }" [(ngModel)]="addComp.location"
+                class="form-control" placeholder="Enter Address" required>
+            </div>
+            <div class="form-group">
+              <label for="webs" class="control-label">Website</label>
+              <span class="text-danger align-middle">
+                <div *ngIf="f1.submitted && webs.invalid">
+                  <div *ngIf="webs.errors.required">Website is required</div>
+                </div>
+              </span>
+              <input type="text" name="webs" #webs="ngModel" [ngClass]="{ 'is-invalid': f1.submitted && webs.invalid }"
+                [(ngModel)]="addComp.website" class="form-control" placeholder="Enter Website URL" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-property" role="tabpanel" aria-labelledby="nav-property-tab">
+          <div style="overflow-wrap: break-word">
+            <p-table #tt [value]="companys" sortMode="multiple" [paginator]="true" [rows]="10"
+              [globalFilterFields]="['name','status']" [responsive]="true" [scrollable]="true" >
+              <ng-template pTemplate="caption">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText  placeholder="Search by Name or status...."
+                  (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:50%">
+              </ng-template>
+              <ng-template pTemplate="header" let-item>
+                <tr>
+                  <th pResizableColumn>Name</th>
+                  <th pResizableColumn>Email</th>
+                  <th pResizableColumn>Phone</th>
+                  <th pResizableColumn>Change Status</th>
+                  <th pResizableColumn>Email</th>
+                  <th pResizableColumn>View Propertys</th>
+                  <th pResizableColumn>Customers</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td style="cursor: pointer" class="ui-resizable-column">{{item.name}}</td>
+                  <td class="ui-resizable-column">{{item.mail}}</td>
+                  <td class="ui-resizable-column">{{item.phone}}</td>
+                  <td class="ui-resizable-column">
+                    <span (click)="changeCompSts(item)" class='btn btn-info btn-xs btnmblcls'><span
+                        [ngClass]='{"fa-times": item.status, "fa-check": !item.status, "fa":true}'></span>
+                      {{item.status?'Deactivate':'Activate'}} </span>
+                  </td>
+                  <td class="ui-resizable-column">
+                    <span class='btn btn-info btn-xs btnmblcls' (click)="showMail(item)"><span class='fa fa-envelope'></span>
+                      Send a mail </span>
+                  </td>
+                  <td class="ui-resizable-column">
+                    <span class='btn btn-info btn-xs btnmblcls' (click)="getProperties(item.companyId)"> Propertys </span>
+                  </td>
+                  <td class="ui-resizable-column">
+                    <span class='btn btn-info btn-xs btnmblcls' (click)="getEnqCustomer(item.companyId)"> Enquired Customers
+                    </span>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Propertys" [(visible)]="showprop" [modal]="true" [responsive]="true"
+  [style]="{width: '70%', left: '15%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <div>
+    <p-table #tt [value]="propLst" sortMode="multiple" [paginator]="true" [rows]="8"
+      [globalFilterFields]="['title','status','type','cost','size']">
+      <ng-template pTemplate="caption">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Search by Name or status...."
+          (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Change Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{item.title}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.location}}</td>
+          <td>
+            <span (click)="changePropSts(item)" class='btn btn-info btn-xs'><span
+                [ngClass]='{"fa-times": item.status, "fa-check": !item.status, "fa":true}'></span>
+              {{item.status?'Deactivate':'Activate'}} </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>
+<p-dialog header="Send Invitation" [(visible)]="showmail" [modal]="true" [responsive]="true"
+  [style]="{width: '50%', left: '25%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <app-mail (display)="onMailDisp($event)" [mail]="this.selComp.mail" [mailType]="'compInvite'"></app-mail>
+</p-dialog>
+<p-dialog header="View Enquired Customers" [(visible)]="showEnq" [modal]="true" [responsive]="true"
+  [style]="{width: '70%', left: '15%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <div>
+    <p-table #tt1 [value]="ecustomers" sortMode="multiple" [paginator]="true" [rows]="10"
+      [globalFilterFields]="['name','status','mail','phone','propName']">
+      <ng-template pTemplate="caption">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Search by Name or status...."
+          (input)="tt1.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>MailId</th>
+          <th>Phone</th>
+          <th>Property</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{item.name}}</td>
+          <td>{{item.mail}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.status}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

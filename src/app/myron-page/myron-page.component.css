@@ -1,0 +1,36 @@
+:host >>> legend{
+    width: auto;
+    color: #563d7c;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+:host >>> .ui-fieldset{
+    border: 1px solid #fed136;
+}
+:host >>> .ui-card-title{
+    color: #563d7c;
+}
+:host >>> .ui-card{
+    border: 1px solid #fed136;
+}
+:host >>>  .homefoot .ui-card{
+    background-color: #563d7c;
+    color: #FED136;
+}
+.aboutImgCls{
+    width: 100%; 
+    height:500px
+}
+
+@media (max-width: 500px){
+    .aboutClss{
+        font-size: 12px;
+    }
+    .aboutImgCls{
+        width: 100%; 
+        height:300px
+    }
+    :host >>> .aboutClss .ui-widget{
+        font-size: 12px;
+    }
+}

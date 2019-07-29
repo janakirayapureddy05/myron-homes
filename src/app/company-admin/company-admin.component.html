@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 clsprpdtlsec">
+      <nav>
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="true">Company Profile</a>
+          <a class="nav-item nav-link" id="nav-addProperty-tab" data-toggle="tab" href="#nav-addProperty" role="tab"
+            aria-controls="nav-addProperty" aria-selected="false">Add Property</a>
+          <a class="nav-item nav-link" id="nav-property-tab" data-toggle="tab" href="#nav-property" role="tab"
+            aria-controls="nav-property" aria-selected="false" (click)="getProperties()">Property Details</a>
+          <!-- <a class="nav-item nav-link" id="nav-customers-tab" data-toggle="tab" href="#nav-customers" role="tab"
+            aria-controls="nav-customers" aria-selected="false" (click)="getEnqCustomer()">Enquired Customers</a> -->
+        </div>
+      </nav>
+      <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <form name="form" (ngSubmit)="f.form.valid && saveCmpnyDtls()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label for="name" class="control-label">Name</label>
+              <span class="text-danger align-middle">
+                  <div *ngIf="f.submitted && name.invalid">
+                      <div *ngIf="name.errors.required">Name is required</div>
+                  </div>
+                  </span>
+              <input type="text"  name='name' #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid}" [(ngModel)]="cadminProfile.name" class="form-control"
+                placeholder="Enter full name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <span class="text-danger align-middle">
+                  <div *ngIf="f.submitted && phone.invalid">
+                          <div *ngIf="phone.errors.required">phone is required</div>
+                      </div>
+          </span>
+              <input type="tel" name='phone' #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid}" [(ngModel)]="cadminProfile.phone" class="form-control"
+                placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+              <label for="mail">Email address</label>
+              <span class="text-danger align-middle">
+                  <div *ngIf="f.submitted && email.invalid">
+                          <div *ngIf="email.errors.required">Email is required</div>
+                          <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                      </div>
+            </span>
+              <input type="email" name='mail' #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid}" [(ngModel)]="cadminProfile.mail"
+               class="form-control" placeholder="Enter email" required email>
+            </div>
+            <div class="form-group">
+              <label for="loc" class="control-label">Location</label>
+              <input type="text" id="loc" name='loc' [(ngModel)]="cadminProfile.location" class="form-control"
+                placeholder="Enter Address">
+            </div>
+            <div class="form-group">
+              <label for="Website" class="control-label">Website</label>
+              <input type="text" id="webs" name='webs' [(ngModel)]="cadminProfile.website" class="form-control"
+                placeholder="Enter Website">
+            </div>
+            <div class="form-group">
+              <button  class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-addProperty" role="tabpanel" aria-labelledby="nav-addProperty-tab">
+            <app-add-property></app-add-property>
+          </div>
+        <div class="tab-pane fade" id="nav-property" role="tabpanel" aria-labelledby="nav-Property-tab">
+          <app-property-list></app-property-list>
+        </div>
+        <!-- <div class="tab-pane fade" id="nav-customers" role="tabpanel" aria-labelledby="nav-customers-tab">
+          <div>
+            <p-table #tt [value]="ecustomers" sortMode="multiple" [paginator]="true" [rows]="10"
+              [globalFilterFields]="['name','status','mail','phone','propName']">
+              <ng-template pTemplate="caption">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Search by Name or status...."
+                  (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Name</th>
+                  <th>MailId</th>
+                  <th>Phone</th>
+                  <th>Property</th>
+                  <th>Status</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td>{{item.name}}</td>
+                  <td>{{item.mail}}</td>
+                  <td>{{item.phone}}</td>
+                  <td>{{item.title}}</td>
+                  <td>{{item.status}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+

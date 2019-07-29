@@ -1,0 +1,161 @@
+<div class="container addPropCls">
+    <form name="form" (ngSubmit)="f.form.valid && AddProperty()" #f="ngForm" novalidate>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Title*</label>
+    </div>
+    <div class="col-9">
+      <input type="text" name='title'  #title="ngModel" [ngClass]="{ 'is-invalid': f.submitted && title.invalid}" class="form-control"[(ngModel)]="addPropReq.title"
+        placeholder="KINGS MARQUE HMDA approved venture at Tukkuguda" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Type*</label>
+    </div>
+    <div class="col-9">
+      <input type="text" name='type'  #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid}" [(ngModel)]="addPropReq.type" class="form-control"
+        placeholder="Individual/Plot/Residence" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Location*</label>
+    </div>
+    <div class="col-9">
+      <input type="text" name='location'  #location="ngModel" [ngClass]="{ 'is-invalid': f.submitted && location.invalid}" [(ngModel)]="addPropReq.location" class="form-control"
+        placeholder="Enter Location" required>
+    </div>
+    <!-- <div class="col-2">
+      <button class="btn btn-primary" (click)="getLatitLong(addPropReq.location)">Locate</button>
+    </div> -->
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Area Size*</label>
+    </div>
+    <div class="col-9">
+      <input type="text" name='size'  #size="ngModel" [ngClass]="{ 'is-invalid': f.submitted && size.invalid}" [(ngModel)]="addPropReq.size" class="form-control" placeholder="Size in sq.ft" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Cost*</label>
+    </div>
+    <div class="col-9">
+      <input type="text" name='cost'  #cost="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cost.invalid}"[(ngModel)]="addPropReq.cost" class="form-control"
+        placeholder="cost of the property" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Description*</label>
+    </div>
+    <div class="col-9">
+      <textarea rows="5" cols="30" class="form-control" name='description'  #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid}" [(ngModel)]="addPropReq.description" pInputTextarea autoResize="autoResize"
+        style="width:100%" required></textarea>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Specifications*</label>
+    </div>
+    <div class="col-9">
+      <textarea rows="5" cols="30" class="form-control" name='specifics'  #specifics="ngModel" [ngClass]="{ 'is-invalid': f.submitted && specifics.invalid}" [(ngModel)]="addPropReq.specifics" pInputTextarea autoResize="autoResize"
+        style="width:100%" required></textarea>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Project Highlights*</label>
+    </div>
+    <div class="col-9">
+      <textarea rows="5" cols="30" class="form-control" name='projectHlts'  #projectHlts="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectHlts.invalid}" [(ngModel)]="addPropReq.projectHlts" pInputTextarea autoResize="autoResize"
+        style="width:100%" required></textarea>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Location Highlights*</label>
+    </div>
+    <div class="col-9">
+      <textarea rows="5" cols="30" class="form-control" name='locationHlts'  #locationHlts="ngModel" [ngClass]="{ 'is-invalid': f.submitted && locationHlts.invalid}" [(ngModel)]="addPropReq.locationHlts" pInputTextarea autoResize="autoResize"
+        style="width:100%" required></textarea>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-3">
+      <label>Amenities</label>
+    </div>
+    <div class="col-9">
+        <div style="display: inline; padding-right: 2%"  *ngFor="let amnty of amenities" >
+          <p-checkbox  name="group1" [value]="amnty" [label]="amnty" [(ngModel)]="selAmenities" inputId="amnty"></p-checkbox></div>
+    </div>
+  </div>
+  <div class="row form-group">
+      <div class="col-3">
+        <label>Other Amenities</label>
+      </div>
+      <div class="col-9">
+          <textarea rows="3" cols="20" name="otherAmnty" [(ngModel)]="addPropReq.otherAmnty" pInputTextarea autoResize="autoResize"
+        style="width:100%"></textarea>
+      </div>
+    </div>
+  <div class="row form-group">
+    <div class='col-12'>
+    <button  class="btn btn-primary">Add Property</button>
+  </div>
+  </div>
+  </form>
+</div>
+
+<agm-map [latitude]="lat" [longitude]="lng"></agm-map>
+
+<p-dialog header="Add Images/Layout" [(visible)]="display" [modal]="true" [responsive]="true"
+  [style]="{width: '60%', left: '20%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <div class="row">
+    <div class="col-3">
+      <label>Images</label>
+    </div>
+    <div class="col-9">
+      <p-fileUpload customUpload="true" (uploadHandler)="UploadFiles(uploadedImages,'img')" (onRemove)="onRemoveIamges($event)" (onSelect)="onSelectImages($event)"
+        multiple="true" accept="image/*" maxFileSize="1000000" [showCancelButton]="false">
+      </p-fileUpload>
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadSuccImgs.length">
+              <li *ngFor="let file of uploadSuccImgs">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+      </ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Layout</label>
+    </div>
+    <div class="col-9">
+      <p-fileUpload customUpload="true" (uploadHandler)="UploadFiles(uploadedLayout,'layout')" (onRemove)="onRemoveLayout($event)" (onSelect)="onSelectLayout($event)"
+        accept="image/*,.pdf" maxFileSize="1000000" mode="advanced" [showCancelButton]="false">
+      </p-fileUpload>
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadSuccLay">
+              <li>{{uploadSuccLay.name}} - {{uploadSuccLay.size}} bytes</li>
+          </ul>
+      </ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <label>Broucher</label>
+    </div>
+    <div class="col-9">
+      <p-fileUpload customUpload="true" (uploadHandler)="UploadFiles(uploadedBroucher,'broucher')" (onRemove)="onRemoveBroucher($event)" (onSelect)="onSelectBroucher($event)"
+        accept="image/*,image/*,.pdf" maxFileSize="1000000" mode="advanced" [showCancelButton]="false">
+      </p-fileUpload>
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadSuccBrou">
+              <li>{{uploadSuccBrou.name}} - {{uploadSuccBrou.size}} bytes</li>
+          </ul>
+      </ng-template>
+    </div>
+  </div>
+</p-dialog>

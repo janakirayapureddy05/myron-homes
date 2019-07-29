@@ -1,108 +1,123 @@
 <div class="container">
-  <form class="form-horizontal" role="form" method="POST" action="/register">
-      <div class="row">
+  <form class="form-horizontal" name="form" (ngSubmit)="f.form.valid && registerfn()" #f="ngForm" novalidate>
+      <div class="row form-group">
           <div class="col-md-3 field-label-responsive">
               <label for="name">Name</label>
           </div>
           <div class="col-md-6">
-              <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                      <input type="text" name="name" class="form-control" id="name"
-                             placeholder="John Doe" required autofocus>
+                      <input type="text" name="name" #name="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && name.invalid}"
+                             placeholder="John Doe" [(ngModel)]="newUser.name" required>
                   </div>
               </div>
-          </div>
           <div class="col-md-3">
-              <div class="form-control-feedback">
-                      <span class="text-danger align-middle">
-                          <!-- Put name validation error messages here -->
-                      </span>
-              </div>
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                                <div *ngIf="f.submitted && name.invalid">
+                                        <div *ngIf="name.errors.required">Name is required</div>
+                                    </div>
+                        </span>
+                </div>
           </div>
       </div>
-      <div class="row">
+      <div class="row form-group">
             <div class="col-md-3 field-label-responsive">
                 <label for="phone">Phone</label>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
-                        <input type="text" name="phone" class="form-control" id="phone"
-                               placeholder="9999999999" required autofocus>
+                        <input type="text" name="phone"  #phone="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid}"
+                               placeholder="9999999999"  [(ngModel)]="newUser.phone" required>
                     </div>
-                </div>
             </div>
             <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                            <!-- Put name validation error messages here -->
+                                <div *ngIf="f.submitted && phone.invalid">
+                                        <div *ngIf="phone.errors.required">phone is required</div>
+                                    </div>
                         </span>
                 </div>
             </div>
         </div>
-      <div class="row">
+      <div class="row form-group">
           <div class="col-md-3 field-label-responsive">
               <label for="email">E-Mail Address</label>
           </div>
           <div class="col-md-6">
-              <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                      <input type="text" name="email" class="form-control" id="email"
-                             placeholder="you@example.com" required autofocus>
+                      <input type="text" name="email" class="form-control" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+                    placeholder="you@example.com" [(ngModel)]="newUser.mail" required email>
                   </div>
-              </div>
           </div>
           <div class="col-md-3">
               <div class="form-control-feedback">
                       <span class="text-danger align-middle">
-                          <!-- Put e-mail validation error messages here -->
+                            <div *ngIf="f.submitted && email.invalid">
+                                    <div *ngIf="email.errors.required">Email is required</div>
+                                    <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                                </div>
                       </span>
               </div>
           </div>
       </div>
-      <div class="row">
+      <div class="row form-group">
           <div class="col-md-3 field-label-responsive">
               <label for="password">Password</label>
           </div>
           <div class="col-md-6">
-              <div class="form-group has-danger">
+              <div class="has-danger">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                      <input type="password" name="password" class="form-control" id="password"
-                             placeholder="Password" required>
+                      <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="newUser.password" 
+                      #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="6">
                   </div>
               </div>
           </div>
           <div class="col-md-3">
               <div class="form-control-feedback">
                       <span class="text-danger align-middle">
-                          <!-- <i class="fa fa-close"> Example Error Message</i> -->
+                            <div *ngIf="f.submitted && password.invalid">
+                                    <div *ngIf="password.errors.required">Password is required</div>
+                                    <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                                </div>
                       </span>
               </div>
           </div>
       </div>
-      <div class="row">
+      <div class="row form-group">
           <div class="col-md-3 field-label-responsive">
               <label for="password">Confirm Password</label>
           </div>
           <div class="col-md-6">
-              <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem">
                           <i class="fa fa-repeat"></i>
                       </div>
-                      <input type="password" name="password-confirmation" class="form-control"
-                             id="password-confirm" placeholder="Password" required>
+                      <input type="password" name="confirm" class="form-control" [(ngModel)]="confirmPsswd" #confirm="ngModel"
+                       placeholder="Password" [ngClass]="{ 'is-invalid': f.submitted && confirm.invalid }"  required minlength="6">
                   </div>
-              </div>
           </div>
+          <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                              <div *ngIf="f.submitted && confirm.invalid">
+                                      <div *ngIf="confirm.errors.required">Password is required</div>
+                                      <div *ngIf="confirm.errors.minlength">Password must be at least 6 characters</div>
+                                  </div>
+                                <dib *ngIf="f.submitted">
+                                        <div *ngIf="confirmPsswd != newUser.password">Passwords must be same</div>
+                                </dib>
+                        </span>
+                </div>
+            </div>
       </div>
       <div class="clsrgbtn">
-          <div>
-              <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+          <div class="form-group">
+              <button  class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
           </div>
       </div>
   </form>

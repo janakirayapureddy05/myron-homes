@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="maildv">
+        <div class="row" style="padding-bottom:2%">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail Address</label>
+            </div>
+            <div class="col-md-9">
+                <div [style.display]="showtag ? '' : 'none'" style="border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+                    <tag-input [(ngModel)]="selMails" placeholder="Enter a Mail Id"
+                        secondaryPlaceholder="Enter a Mail Id">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [appendToBody]="false"
+                            [autocompleteItems]="mails">
+                        </tag-input-dropdown>
+                    </tag-input>
+                </div>
+                <div [style.display]="!showtag ? '' : 'none'"  class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" readonly [ngModel]="mail" name="mail" class="form-control" id="subject">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Subject</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="subject" class="form-control" id="subject"
+                            placeholder="Invitation to Myron Builders" [(ngModel)]="mailReq.subject" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="phone">Message</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <textarea  [(ngModel)]="mailReq.body" class="form-control" name="message" rows="5" cols="30" pInputTextarea
+                            autoResize="autoResize" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clsrgbtn">
+            <div>
+                <button type="submit" (click)="sendMail()" class="btn btn-success"><i class="fa fa-user-plus"></i>
+                    Send Mail</button>
+            </div>
+        </div>
+    </div>
+</div>

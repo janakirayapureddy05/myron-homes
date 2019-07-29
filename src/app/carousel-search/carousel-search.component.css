@@ -1,24 +1,101 @@
 .search-sec{
     padding: 2rem;
     position: absolute;
-    z-index: 2
+    z-index: 2;
+    width: 95%;
 }
 .gallerySec{
     position: absolute;
     z-index: 1;
-    margin: 1% 4%;
     width:100%
+}
+:host >>> .ui-panel-images {
+    width: 100%;
+    height: 100%;
 }
 @media (min-width: 992px){
     .search-sec{
         position: relative;
-        top: 80px;
+        top: 25%;
         /* background: rgba(26, 70, 104, 0.51); */
     }
 }
 
 @media (max-width: 992px){
-    .search-sec{
+    /* .search-sec{
         background: #1A4668;
+    } */
+}
+:host >>>  .homefoot .ui-card{
+    background-color: #563d7c;
+    color: #FED136;
+}
+
+.marqueecls{
+    color: #563d7c;
+    font-weight:bold;
+    font-style: italic;
+    border: 1px solid #fed136;
+    font-size: 14px;
+}
+:host >>> .ui-card{
+    border: 1px solid #fed136;
+}
+.sidebarVen{
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+    /* direction: rtl; */
+    transform: rotate(90deg);
+    right: -8%;
+    /* left: 0; */
+    transition: all 0.2s ease-in-out;
+    height: auto;
+    margin-top: 2%;
+    padding: 0.4% 1%;
+    top: 50%;
+    width: 20%;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #563d7c;
+    color:#FED136;
+    /* background-color: white; */
+}
+
+.rhtHdrCls{
+    background-color: #563d7c;
+    color: #FED136;
+    padding: 1% 1% 3% 2%;
+    font-size: 16px;
+}
+:host >>> #rhtVentCls .ui-sidebar .ui-sidebar-close{
+    color: #FED136;
+    padding: 2%;
+    font-size: 16px;
+}
+.newpropcls {
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
+    padding-bottom: 5%;
+}
+
+/* .rhtVentSbCls{
+    width:'30%';
+    padding:'0';
+} */
+
+@media (max-width: 500px){
+
+    .sidebarVen{
+        right: -10%;
+        width: 28%;
     }
+    
+    /* .rhtVentSbCls {
+        width: 90%;
+    }
+    .rhtVentSbCls .ui-widget {
+        font-size: 12px;
+    } */
 }

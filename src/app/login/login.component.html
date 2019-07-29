@@ -1,12 +1,11 @@
-<form action="action_page.php">
-
+<form ngNativeValidate>
   <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
+    <label for="uname"><b>Username*</b></label>
+    <input type="text" class="form-control" name='email' #email="ngModel" [(ngModel)]="userReq.mail"   placeholder="you@example.com" 
+    [ngClass]="{ 'is-invalid': email.invalid }" required email>
+    <label for="psw"><b>Password*</b></label>
+    <input type="password" placeholder="Enter Password" name="lpsw"  [(ngModel)]="userReq.password" required>
+    <re-captcha name="captcha" [(ngModel)]="recapt" required></re-captcha>
     <button type="submit" (click)="login()" class="clslogin">Login</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -14,13 +13,37 @@
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
-      <button type="button"  (click)="showDialog()" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
+      <button type="button"  (click)="showRegister()" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+      <span class="psw"> | change<a href="/cpswd"> password</a></span>
+      <span class="psw">Forgot <span (click)="showForgot()" style="color: #007ad9; cursor: pointer;">password?</span> </span>
   </div>
 </form>
-
-
-<p-dialog header="Register New User" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '50%', left: '25%'}" [minY]="70" 
+<p-dialog header="Register New User" [(visible)]="register" [modal]="true" [responsive]="true" [style]="{width: '50%', left: '25%'}" [minY]="70" 
         [maximizable]="true" [baseZIndex]="10000">
-        <app-register></app-register>
+        <app-register (register)="onRegister($event)"></app-register>
+</p-dialog>
+<p-dialog header="Forgot password" [(visible)]="forgot" [modal]="true" [responsive]="true" [style]="{width: '50%', left: '25%'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+        <div class="container">
+            <form ngNativeValidate>
+                <div class="row">
+                    <div class="col-md-3 field-label-responsive">
+                        <label for="email">E-Mail Address</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <input type="text" name="email" class="form-control" id="email"
+                                pattern = "[^ @]*@[^ @]*"  placeholder="you@example.com" [(ngModel)]="userReq.mail" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clsrgbtn">
+                    <div>
+                        <button type="submit"  (click)="forgotPass()" class="btn btn-success"><i class="fa fa-user-plus"></i> Forgot Password</button>
+                    </div>
+                </div>
+            </form>
+            </div>
 </p-dialog>

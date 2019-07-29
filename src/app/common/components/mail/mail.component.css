@@ -1,0 +1,10 @@
+
+
+.maildv{
+    border: 1px dotted #c8c8c8;
+    margin: 1%;
+    padding: 1%;
+  }
+  host >>> .ui-dialog-titlebar-close {
+    display:none;
+  }

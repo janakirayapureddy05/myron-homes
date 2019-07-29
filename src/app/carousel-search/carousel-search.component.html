@@ -1,7 +1,32 @@
-
-<div class="container gallerySec">
- <p-galleria [images]="images" panelWidth="1200" panelHeight="500"  [showCaption]="false"></p-galleria>
+<div style="height: 750px">
+<div class="marqueecls">
+    <marquee  behavior="alternate" scrollamount="1">Myron  Homes is extremely selective about each project it works with ensuring that every property is nothing short of a dream home......Click to know more <p (click)="gotomyron()" style="display: inline;text-decoration-line: underline; cursor: pointer;">ABOUT US </p></marquee>
+</div>
+<div id='body' style="padding-bottom: 100px; height: 650px">
+<div class="gallerySec">
+ <p-galleria [images]="images" panelWidth="100%" panelHeight="600"  [showCaption]="false"></p-galleria>
 </div>
 <div class="search-sec">
-        <app-search></app-search>
+  <app-search></app-search>
 </div>
+<div class="sidebarVen" (click)="visibleSidebar2 = true">
+     New ventures
+</div>
+</div>  
+<div class="homefoot">
+  <div style="width:100%">
+  <p-card>
+    <div style="text-align: center;">Address: Plot No: 59,Road No : 71,Film Nagar,Jubilee hills,Hyderabad – 500 096.
+    Call:9809803838, 9569564848 Email: sales@myronhomes.in</div>
+    <div style="text-align: center;font-size: 12px">©2019 Myron Homes Construction Company (P) LTD | Top Real Estate Builders In Hyderabad – Telangana. All Rights Reserved</div>
+</p-card>
+</div>
+</div>
+</div>
+
+<p-sidebar id='rhtVentCls' [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000" styleClass="ui-sidebar-md" >
+    <div class="rhtHdrCls" style="font-weight:normal">New Properties</div>
+    <div class="newpropcls">
+      <app-new-propertys></app-new-propertys>
+    </div>
+</p-sidebar>

@@ -1,0 +1,119 @@
+<p-dataView #dv [value]="propLst" [paginator]="true" [rows]="4" paginatorPosition="both" [sortOrder]="sortOrder"
+    filterBy="location,type,title,builder.name">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                        (onChange)="onSortChange($event.value)" [style]="{'width':'90%'}"></p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-8 filter-container">
+                    <div style="position:relative">
+                        <input type="search" pInputText placeholder="Type to filter..."
+                            (keyup)="dv.filter($event.target.value)" style="width:100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <ng-template let-prop pTemplate="listItem">
+        <div class="ui-g" style="border-bottom: 1px solid #d9d9d9">
+            <div class="ui-g-12 ui-md-3" style="text-align:center">
+                <p-galleria (click)="viewDetails(prop)" [images]="prop.images" panelWidth="auto" panelHeight="120"
+                    [showCaption]="false"></p-galleria>
+            </div>
+            <div class="ui-g-12 ui-md-9">
+                <div class="ui-g">
+                    <div class="ui-g-8 ui-sm-8"> {{prop.title}}<span (click)="ShortListProp(prop)"
+                            [ngClass]="{'fa':true, 'fa-star-o':!prop.shortlisted, 'fa-star':prop.shortlisted}"
+                            style="color: #3198db; font-size:1.4em"></span></div>
+                    <div class="ui-g-4 ui-sm-4" style="text-align:right">
+                        <!-- <a href="https://api.whatsapp.com/send?text=check out this Property : {{url+prop.propId}}" target="_blank"
+                            data-action="share/whatsapp/share" title="share to get credits" (click)="socialShare(prop, 'whatsapp share')">
+                            <i class="fa fa-whatsapp" aria-hidden="true"
+                                style="font-size: 1.8em;color: lightseagreen;"></i>
+                        </a> -->
+                    </div>
+                    <div class="ui-g-2 ui-sm-2"> {{prop.cost|indianCurrency}} </div>
+                    <div class="ui-g-2 ui-sm-2"> {{prop.size}}sq.ft </div>
+                    <div class="ui-g-8 ui-sm-8 clsSocialbtns" style="text-align:right">
+                        <button #btn type="button" pButton icon="pi pi-bars" label="Share Property" (click)="[shareprop = prop,menu.toggle($event)]"></button>
+                        <!-- <div (click)="socialShare(prop, 'Facebook share')" class="parent">
+                            <div class="hover-content">share to get credits</div>
+                            <fb-like url={{url+prop.propId}}></fb-like>
+                        </div>
+                        <div class="parent" style="margin-right: 1%">
+                                <span (click)="viewMail(prop.propId)" class="fa fa-envelope-square social mailcls">
+                                </span>
+                                <div class="hover-content" style="margin-top:-4.3%">share to get credits</div>
+                        </div>
+                        <span (click)="socialShare(prop, 'Linkedin share')" class="parent">
+                            <div class="hover-content">share to get credits</div>
+                    <linkedin-share url={{url+prop.propId}}></linkedin-share></span> -->
+            </div>
+            <div class="ui-g-12">
+                <div [ngClass]="{'showMore': more, 'showLess': !more}">{{prop.description}}</div>
+                <span (click)="more = !more"
+                    style="color: #3198db;cursor: pointer;">{{more ? '--Less' : '++more'}}</span>
+            </div>
+            <div class="ui-g-6" style="font-size: small;padding-top:1%">
+                <span>Posted on {{prop.pdate | date: 'dd/MM/yyyy'}} by {{prop.builder.name}} Builders</span>
+            </div>
+            <div class="ui-g-6" style="text-align:right">
+                <button (click)="viewContact(prop)" pButton type="button" label="Contact Builder"></button>
+            </div>
+        </div>
+        </div>
+        </div>
+    </ng-template>
+</p-dataView>
+<p-tieredMenu #menu [model]="shareItms" [popup]="true"></p-tieredMenu>
+<p-dialog header="Share the Property" [(visible)]="showmail" [modal]="true" [responsive]="true"
+    [style]="{width: '50%', left: '25%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <app-mail *ngIf="showmail" (display)="onMailDisp($event)" [propId]="selPropId" [mail]="" [mailType]="'share'">
+    </app-mail>
+</p-dialog>
+<p-dialog header="Builder Details" [(visible)]="showcontact" [modal]="true" [responsive]="true"
+    [style]="{width: '50%', left: '25%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="name" class="form-control" id="name" [(ngModel)]="selContact.name"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="phone" class="form-control" id="phone" [(ngModel)]="selContact.phone"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail Address</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="mail" class="form-control" id="mail" [(ngModel)]="selContact.mail"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

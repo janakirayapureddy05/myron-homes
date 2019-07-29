@@ -3,23 +3,96 @@
     <div class="col-xs-12 clsprpdtlsec">
       <nav>
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-layout-tab" data-toggle="tab" href="#nav-layout" role="tab" aria-controls="nav-layout" aria-selected="true">Layout</a>
-          <a class="nav-item nav-link" id="nav-map-tab" data-toggle="tab" href="#nav-map" role="tab" aria-controls="nav-map" aria-selected="false">Location Map</a>
-          <a class="nav-item nav-link" id="nav-specs-tab" data-toggle="tab" href="#nav-specs" role="tab" aria-controls="nav-specs" aria-selected="false">Specification</a>
-          <a class="nav-item nav-link" id="nav-devp-tab" data-toggle="tab" href="#nav-devp" role="tab" aria-controls="nav-devp" aria-selected="false">Developments</a>
+          <a class="nav-item nav-link active" id="nav-layout-tab" data-toggle="tab" href="#nav-layout" role="tab"
+            aria-controls="nav-layout" aria-selected="true">Layout</a>
+          <a class="nav-item nav-link" id="nav-map-tab" data-toggle="tab" href="#nav-map" role="tab"
+            aria-controls="nav-map" aria-selected="false">Location Map</a>
+          <a class="nav-item nav-link" id="nav-specs-tab" data-toggle="tab" href="#nav-specs" role="tab"
+            aria-controls="nav-specs" aria-selected="false">Specification</a>
+          <a class="nav-item nav-link" id="nav-devp-tab" data-toggle="tab" href="#nav-devp" role="tab"
+            aria-controls="nav-devp" aria-selected="false">Images</a>
         </div>
       </nav>
       <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-layout" role="tabpanel" aria-labelledby="nav-layout-tab">
-         hello hi
+          <iframe [src]="apiroot + property.layout | safe" height="600" width="100%"></iframe>
         </div>
         <div class="tab-pane fade" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab">
-          <agm-map [latitude]="lat" [longitude]="lng"></agm-map>
+          <div class="row locHltsCls">
+          <div class="col-12">
+            <p-card header="Location Highlights">
+                <div [innerHTML]="property.locationHlts | space"></div>
+            </p-card>
+          </div>
+        </div>
+        <div class="col-12">
+          <p-card header="Directions">
+            <iframe width="100%" height="450" frameborder="0" style="border:0"
+            [src]="srcurl | safe" allowfullscreen></iframe>
+          </p-card>
+        </div>
         </div>
         <div class="tab-pane fade" id="nav-specs" role="tabpanel" aria-labelledby="nav-specs-tab">
-         </div>
+          <div>
+            <p-accordion [multiple]="true">
+              <p-accordionTab header="Specifications">
+                <div [innerHTML]="property.specifics | space"></div>
+              </p-accordionTab>
+              <p-accordionTab header="Project Heighlights">
+                <div [innerHTML]="property.projectHlts | space"></div>
+              </p-accordionTab>
+              <p-accordionTab header="Amenities">
+                <div class="row">
+                  <div class="imgAmnty">
+                    <div>Lift</div>
+                    <img  src="assets/images-myron/lift.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Parking</div>
+                    <img  src="assets/images-myron/parking.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>24/7 Water Supply</div>
+                    <img  src="assets/images-myron/water.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Fire Fighting Systems</div>
+                    <img  src="assets/images-myron/fire.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Gymnasium</div>
+                    <img  src="assets/images-myron/gym.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Club House</div>
+                    <img  src="assets/images-myron/club.png" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Childrens Play Area</div>
+                    <img  src="assets/images-myron/playground.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Garden/Park</div>
+                    <img  src="assets/images-myron/park.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                  <div class="imgAmnty">
+                      <div>Street Lights</div>
+                    <img src="assets/images-myron/streetlight.svg" alt="..." class="img-thumbnail ">
+                  </div>
+                </div>
+                <div class="row" *ngIf="property.otherAmnty">
+                  <div class="col-12">Other Amenities:</div>
+                  <div [innerHTML]="property.otherAmnty | space"></div>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </div>
         <div class="tab-pane fade" id="nav-devp" role="tabpanel" aria-labelledby="nav-devp-tab">
-         </div>
+          <div class="col-12">
+            <p-galleria [images]="property.images" panelWidth="auto" panelHeight="500" showCaption="true"></p-galleria>
+          </div>
+        </div>
       </div>
     </div>
   </div>

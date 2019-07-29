@@ -4,28 +4,217 @@
               <nav>
                   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
-                    <a class="nav-item nav-link" id="nav-credits-tab" data-toggle="tab" href="#nav-credits" role="tab" aria-controls="nav-credits" aria-selected="false">Credits</a>
-                    <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="false">Address Book</a>
+                    <a class="nav-item nav-link" id="nav-credits-tab" (click)="getCredits()" data-toggle="tab" href="#nav-credits" role="tab" aria-controls="nav-credits" aria-selected="false">My Points</a>
+                    <a class="nav-item nav-link" id="nav-address-tab" (click)="getAdrsDtls()" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="false">Address Book</a>
                   </div>
               </nav>
               <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div>
-                      <span>Name</span>
-                      <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
+                     <form name="form" (ngSubmit)="f.form.valid && saveUser()" #f="ngForm" novalidate> 
+                    <div class="form-group">
+                        <label for="name" class="control-label">Name</label>
+                        <span class="text-danger align-middle">
+                                <div *ngIf="f.submitted && name.invalid">
+                                    <div *ngIf="name.errors.required">Name is required</div>
+                                </div>
+                                </span>
+                        <input type="text" name="name"  #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid}" class="form-control" placeholder="Enter full name" [(ngModel)]="userProfile.name" required>
+                      </div>
+                      <div  class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <span class="text-danger align-middle">
+                                <div *ngIf="f.submitted && phone.invalid">
+                                        <div *ngIf="phone.errors.required">phone is required</div>
+                                    </div>
+                        </span>
+                        <input type="tel" name='phone' #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid}" class="form-control" placeholder="Enter phone number" [(ngModel)]="userProfile.phone" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="mail">Email address</label>
+                        <span class="text-danger align-middle">
+                                <div *ngIf="f.submitted && email.invalid">
+                                        <div *ngIf="email.errors.required">Email is required</div>
+                                        <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                                    </div>
+                          </span>
+                        <input type="email" name="email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid}"  [(ngModel)]="userProfile.mail"  id="mail"  class="form-control" placeholder="Enter email" required email>
+                      </div>
+                      <fieldset class="form-group">
+                          <div class="ui-g">
+                            <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                <div class="ui-g-12"><p-radioButton name="Gender" value="male" label="Male" [(ngModel)]="userProfile.gender" inputId="male"></p-radioButton></div>
+                                <div class="ui-g-12"><p-radioButton name="Gender" value="female" label="Female" [(ngModel)]="userProfile.gender" inputId="female"></p-radioButton></div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      <div class="form-group">
+                        <label for="loc" class="control-label">Location</label>
+                        <input type="text" name="location" id="loc" class="form-control" placeholder="Enter Address" [(ngModel)]="userProfile.location" >
+                      </div>
+                      <div class="form-group">
+                        <label for="occup" class="control-label">Occupation</label>
+                        <input type="text" name="occupation" id="occup" class="form-control" placeholder="Enter Occupation" [(ngModel)]="userProfile.occupation" >
+                      </div>
+                      <div class="form-group">
+                        <button class="btn btn-primary">Save</button>
                     </div>
-                  <div>
-                    <span>Phone</span>
-                    <p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"></p-inputMask>
-                </div>
-                                    
+                  </form> 
                   </div>
                   <div class="tab-pane fade" id="nav-credits" role="tabpanel" aria-labelledby="nav-credits-tab">
-                   
+                    <div>
+                    <p-table #pp [value]="refcreditslst" sortMode="multiple" [paginator]="true" [rows]="5" [globalFilterFields]="['creditedBy','date']">
+                        <ng-template pTemplate="caption">
+                            <div style="display:inline-flex;float:left"><span>Refferal Points</span></div>
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText  placeholder="Type to Search...." (input)="pp.filterGlobal($event.target.value, 'contains')" style="width:50%">
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Credited By</th>
+                                <th>Points</th>
+                                <th>Date</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-credit>
+                            <tr>
+                                <td>{{credit.creditedBy}}</td>
+                                <td>{{credit.count}}</td>
+                                <td>{{credit.date | date: 'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                        </div>
+                        <div>
+                            <p-table #kk [value]="purcreditslst" sortMode="multiple" [paginator]="true" [rows]="5" [globalFilterFields]="['creditedBy','date']">
+                                <ng-template pTemplate="caption">
+                                    <div style="display:inline-flex;float:left"><span>Purchase Points</span></div>
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText  placeholder="Type to Search...." (input)="kk.filterGlobal($event.target.value, 'contains')" style="width:50%">
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Credited By</th>
+                                        <th>Points</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-credit>
+                                    <tr>
+                                        <td>{{credit.creditedBy}}</td>
+                                        <td>{{credit.count}}</td>
+                                        <td>{{credit.date | date: 'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                              </div>
                   </div>
                   <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
+                      <div>
+                          <p-table #tt [value]="addressLst" sortMode="multiple" [paginator]="true" [rows]="10" [globalFilterFields]="['name','mail','phone']">
+                              <ng-template pTemplate="caption">
+                                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                  <input type="text" pInputText  placeholder="Type to Search...." (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:50%">
+                                  <div (click)="showAdd()" class="btn btn-primary btn-xs pull-right" style="width: 40%"><b>+</b> Add a Friend</div>
+                              </ng-template>
+                              <ng-template pTemplate="header">
+                                  <tr>
+                                      <th>Name</th>
+                                      <th>Mail Id</th>
+                                      <th>Phone</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-item>
+                                  <tr>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.mail}}</td>
+                                    <td>{{item.phone}}</td>
+                                    <td><span class='btn btn-info btn-xs btnaddrcls' (click)="showEdit(item)" ><span class="fa fa-pencil"></span> Edit</span> <span (click)="delAddrs(item)" class="btn btn-danger btn-xs btnaddrcls"><span class="fa fa-trash-o"></span> Del</span></td>
+                                  </tr>
+                              </ng-template>
+                          </p-table>
+                            </div>
                    </div>
                 </div>
             </div>
           </div>
         </div>
+
+
+<p-dialog header="Add/Edit a Address" [(visible)]="adddisplay" [modal]="true" [responsive]="true" [style]="{width: '50%', left: '25%'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+        <div class="container">
+          <form class="form-horizontal" name="form" (ngSubmit)="f1.form.valid && editAddrs()" #f1="ngForm" novalidate>
+                <div class="row form-group">
+                        <div class="col-md-3 field-label-responsive">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                                    <input type="text" name="ename" #ename="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f1.submitted && ename.invalid}"
+                                           placeholder="John Doe" [(ngModel)]="addEditAddrs.name" required>
+                                </div>
+                            </div>
+                        <div class="col-md-3">
+                              <div class="form-control-feedback">
+                                      <span class="text-danger align-middle">
+                                              <div *ngIf="f1.submitted && ename.invalid">
+                                                      <div *ngIf="ename.errors.required">Name is required</div>
+                                                  </div>
+                                      </span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                            <div class="col-md-3 field-label-responsive">
+                                <label for="ephone">Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
+                                        <input type="text" name="ephone"  #ephone="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f1.submitted && ephone.invalid}"
+                                               placeholder="9999999999"  [(ngModel)]="addEditAddrs.phone" required>
+                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-control-feedback">
+                                        <span class="text-danger align-middle">
+                                                <div *ngIf="f1.submitted && ephone.invalid">
+                                                        <div *ngIf="ephone.errors.required">phone is required</div>
+                                                    </div>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                                <div class="col-md-3 field-label-responsive">
+                                    <label for="email1">E-Mail Address</label>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                                            <input type="text" name="email1" class="form-control" #email1="ngModel" [ngClass]="{ 'is-invalid': f1.submitted && email1.invalid }"
+                                          placeholder="you@example.com" [(ngModel)]="addEditAddrs.mail" required email>
+                                        </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-control-feedback">
+                                            <span class="text-danger align-middle">
+                                                  <div *ngIf="f1.submitted && email1.invalid">
+                                                          <div *ngIf="email1.errors.required">Email is required</div>
+                                                          <div *ngIf="email1.errors.email">Email must be a valid email address</div>
+                                                      </div>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+              <div class="clsrgbtn ">
+                  <div class="form-group">
+                      <button class="btn btn-success"> Save Address</button>
+                  </div>
+              </div>
+          </form>
+          </div>
+</p-dialog>

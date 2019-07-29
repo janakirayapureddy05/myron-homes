@@ -1,27 +1,47 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div>
 <header>
-<nav class="navbar navbar-expand-md navbar-dark" id="banner">
-	<div class="container">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#"><span><img src="assets/images-myron/myron-img.png" alt="..." class="img-thumbnail"></span></a>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="banner">
+            <!-- Brand -->
+            <a class="navbar-brand"><span><img src="assets/images-myron/myron-img.png" alt="..."
+                        class="img-thumbnail"></span></a>
 
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/login"><span style="margin-right: 3px" class="fa fa-sign-in"></span>Login</a>
-      </li>
-        </ul>
-  </div>
-	</div>
-</nav>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar" style="margin-right: 1%">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" (click)="msearchClick()"><i class="fa fa-home"></i>&nbsp;Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="gotomyron()"><i class="fa fa-info-circle"></i>&nbsp;About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" *ngIf="!commonService.userProfile" (click)="loginClick()">Login/Register</a>
+                          <a class="dropdown-item" *ngIf="commonService.userProfile" (click)="myAccount()">My Account</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" (click)="shtlstdProp()">My List</a>
+                          <!-- <a class="dropdown-item" *ngIf="commonService.userProfile && commonService.userProfile.userType==='user'" (click)="shtlstdProp()">My List</a> -->
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item"  (click)="referMyron()">Refer Myron</a>
+                          <div class="dropdown-divider" *ngIf="commonService.userProfile"></div>
+                          <a class="dropdown-item" *ngIf="commonService.userProfile" (click)="logout()">Logout</a>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+    </nav>
 </header>
-<div class="container">
-<router-outlet></router-outlet>
+<div style="overflow-wrap: break-word">
+    <router-outlet></router-outlet>
 </div>
+<ui-toast-top-center></ui-toast-top-center>
+<p-dialog header="Share Myron Homes" [(visible)]="showmail" [modal]="true" [responsive]="true"
+    [style]="{width: '50%', left: '25%'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <app-mail *ngIf="showmail" (display)="onMailDisp($event)" [mail]="" [mailType]="'refmyron'">
+    </app-mail>
+</p-dialog>

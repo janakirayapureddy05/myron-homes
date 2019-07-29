@@ -2,7 +2,7 @@ nav > .nav.nav-tabs{
 
   border: none;
     color:#fff;
-    background:#272e38;
+    background:#274a68;
     border-radius:0;
 
 }
@@ -12,7 +12,7 @@ nav > div a.nav-item.nav-link.active
   border: none;
     padding: 18px 25px;
     color:#fff;
-    background:#272e38;
+    background:#274a68;
     border-radius:0;
 }
 
@@ -46,3 +46,19 @@ nav > div a.nav-item.nav-link:focus
 .clsprpdtlsec{
   width:100%;
 }
+
+form{
+  border: 1px dotted #c8c8c8;
+  margin: 1%;
+  padding: 1%;
+}
+@media (max-width: 500px){
+  .btnaddrcls {
+    padding: 2% 6%;
+    margin-top: 2%;
+  }
+}
+
+/* input:required:invalid, input:focus:invalid {
+  border-color: red;
+} */
